@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import { Replace } from '../../lib/helpers';
+import { DateUtil } from '../../lib/helpers/date-util';
 import { DayHabit } from './DayHabit';
 import { HabitWeekDay } from './HabitWeekDays';
 
@@ -28,7 +29,7 @@ export class Habit {
       ...props,
       dayHabits: [],
       weekDays: [],
-      createdAt: props.createdAt ?? new Date(),
+      createdAt: props.createdAt ?? DateUtil.clearDateTime(),
     };
   }
 
