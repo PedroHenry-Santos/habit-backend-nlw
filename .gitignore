@@ -2,3 +2,4 @@ node_modules
 .tool-versions
 .vscode
 prisma/dev.db
+prisma/dev.db-journal
