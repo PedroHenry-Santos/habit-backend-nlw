@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Habit {
-  id        String   @id @default(uuid())
+  id        String   @id
   title     String
   createdAt DateTime @map("created_at")
 
@@ -22,7 +22,7 @@ model Habit {
 }
 
 model HabitWeekDays {
-  id      String @id @default(uuid())
+  id      String @id
   habitId String @map("habit_id")
   weekDay Int    @map("week_day")
 
@@ -33,7 +33,7 @@ model HabitWeekDays {
 }
 
 model Day {
-  id   String   @id @default(uuid())
+  id   String   @id
   date DateTime
 
   dayHabits DayHabit[]
@@ -43,7 +43,7 @@ model Day {
 }
 
 model DayHabit {
-  id      String @id @default(uuid())
+  id      String @id
   dayId   String @map("day_id")
   habitId String @map("habit_id")
 
