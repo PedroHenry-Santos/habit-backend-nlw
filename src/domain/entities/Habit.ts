@@ -29,7 +29,7 @@ export class Habit {
       ...props,
       dayHabits: [],
       weekDays: [],
-      createdAt: props.createdAt ?? DateUtil.clearDateTime(),
+      createdAt: props.createdAt ?? DateUtil.getClearDateTime(),
     };
   }
 
