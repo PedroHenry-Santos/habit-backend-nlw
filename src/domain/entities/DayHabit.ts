@@ -29,4 +29,8 @@ export class DayHabit {
   public get habitId() {
     return this.props.habit.id
   }
+
+  public get day() {
+    return this.props.day
+  }
 }
