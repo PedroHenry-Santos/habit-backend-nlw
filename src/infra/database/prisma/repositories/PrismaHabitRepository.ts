@@ -5,6 +5,30 @@ import { HabitRepository, HabitsByDateQueryData, RemoveDayHabitQueryData } from 
 
 export class PrismaHabitRepository implements HabitRepository  {
   constructor (private readonly prisma: PrismaClient) {}
+  getHabitsSummary() {
+    return this.prisma.$queryRaw`
+      SELECT
+        D.id,
+        D.date,
+      (
+        SELECT
+          cast(count(*) as float)
+        FROM day_habits DH
+        WHERE DH.day_id = D.id
+      ) AS completed,
+      (
+        SELECT
+          cast(count(*) as float)
+        FROM habit_week_days HWD
+        JOIN habits H
+          ON H.id = HWD.habit_id
+        WHERE
+          HWD.week_day = cast(strftime('%w', D.date / 1000.0, 'unixepoch') as int)
+          AND H.created_at <= D.date
+      ) as amount
+      FROM days D
+    `
+  }
 
   async getHabitsADate({ date }: Omit<HabitsByDateQueryData, 'weekDay'>) {
     return this.prisma.day.findUnique({
