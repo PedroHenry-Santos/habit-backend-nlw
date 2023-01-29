@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
-import { Habit } from "../../../../domain/entities";
-import { HabitRepository, HabitsByDateQueryData } from "../../../../domain/repositories";
+import { DayHabit, Habit } from "../../../../domain/entities";
+import { HabitRepository, HabitsByDateQueryData, RemoveDayHabitQueryData } from "../../../../domain/repositories";
 
 export class PrismaHabitRepository implements HabitRepository  {
   constructor (private readonly prisma: PrismaClient) {}
@@ -43,6 +43,42 @@ export class PrismaHabitRepository implements HabitRepository  {
             id,
             weekDay
           }))
+        }
+      }
+    })
+  }
+
+  async createDayHabit({ day: { date }, habitId, id, dayId }: DayHabit) {
+    console.log({ day: { date }, habitId, id, dayId })
+    await this.prisma.dayHabit.create({
+      data: {
+        id,
+        habit: {
+          connect: {
+            id: habitId
+          }
+        },
+        day: {
+          connectOrCreate: {
+            create: {
+              date,
+              id: dayId
+            },
+            where: {
+              id: dayId
+            }
+          }
+        }
+      }
+    })
+  }
+
+  async removeDayHabit ({ dayId, habitId }: RemoveDayHabitQueryData) {
+    await this.prisma.dayHabit.delete({
+      where: {
+        dayId_habitId: {
+          dayId,
+          habitId
         }
       }
     })
