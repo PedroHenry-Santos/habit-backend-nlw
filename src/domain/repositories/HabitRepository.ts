@@ -12,8 +12,9 @@ export interface RemoveDayHabitQueryData {
 
 export abstract class HabitRepository {
   abstract create(habit: Habit): Promise<void>;
-  abstract getPossibleHabitsByDate(queryData: HabitsByDateQueryData): any;
-  abstract getHabitsADate(queryData: Omit<HabitsByDateQueryData, 'weekDay'>): any;
+  abstract getPossibleHabitsByDate(queryData: HabitsByDateQueryData): Promise<any>;
+  abstract getHabitsADate(queryData: Omit<HabitsByDateQueryData, 'weekDay'>): Promise<any>;
   abstract createDayHabit(dayHabit: DayHabit): Promise<void>;
   abstract removeDayHabit(queryData: RemoveDayHabitQueryData): Promise<void>;
+  abstract getHabitsSummary (): Promise<any>
 }
