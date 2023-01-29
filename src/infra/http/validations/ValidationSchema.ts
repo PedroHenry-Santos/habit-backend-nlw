@@ -12,10 +12,17 @@ export class ValidationSchemas {
   }
 
   getHabitADayQuery(request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) {
-    const createHabitBody = z.object({
+    const habitADayQuery = z.object({
       date: z.coerce.date()
     })
-    createHabitBody.parse(request.query)
+    habitADayQuery.parse(request.query)
+    done()
+  }
+  toggleDayHabitParams(request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) {
+    const dayHabitParams = z.object({
+      id: z.string().uuid()
+    })
+    dayHabitParams.parse(request.params)
     done()
   }
 }
