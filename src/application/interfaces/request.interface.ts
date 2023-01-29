@@ -1,4 +1,9 @@
-export interface IGenericRequest<T extends any = any> {
-  body: T,
-  query: T
+export interface IGenericRequest<
+  B extends any = any,
+  Q extends any = any,
+  P extends any = any,
+> {
+  body: B,
+  query: Q,
+  params: P
 }
