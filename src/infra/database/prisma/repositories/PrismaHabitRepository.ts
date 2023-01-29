@@ -73,7 +73,6 @@ export class PrismaHabitRepository implements HabitRepository  {
   }
 
   async createDayHabit({ day: { date }, habitId, id, dayId }: DayHabit) {
-    console.log({ day: { date }, habitId, id, dayId })
     await this.prisma.dayHabit.create({
       data: {
         id,

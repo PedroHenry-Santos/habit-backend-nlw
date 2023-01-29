@@ -20,7 +20,6 @@ export class ToggleHabit {
       day?.dayHabits?.some(({ habitId }: DayHabit) => habitId === id)
     ) {
       const dayHabit = (day.dayHabits as DayHabit[]).filter(({ habitId }) => habitId === id)[0]
-      console.log(dayHabit)
       return this.repository.removeDayHabit(dayHabit)
     }
 
