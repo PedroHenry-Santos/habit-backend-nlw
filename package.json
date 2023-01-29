@@ -14,7 +14,11 @@
     "nodejs",
     "fastify",
     "prisma",
-    "nlw"
+    "nlw",
+    "SQL",
+    "clean architecture",
+    "DDD",
+    "SOLID"
   ],
   "license": "ISC",
   "dependencies": {
