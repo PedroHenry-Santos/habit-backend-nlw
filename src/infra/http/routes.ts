@@ -1,6 +1,6 @@
-import { FastifyInstance, FastifyRequest } from "fastify"
+import { FastifyInstance } from "fastify"
 
-import { CreateHabit, GetHabitOfTheDay } from "../../domain/use-cases"
+import { CreateHabit, GetHabitOfTheDay, ToggleHabit } from "../../domain/use-cases"
 import { ValidationSchemas } from "./validations"
 import { prisma, PrismaHabitRepository } from "../database/prisma"
 import { HabitController } from "../../application/controllers"
@@ -9,9 +9,11 @@ export async function appRoutes(app: FastifyInstance) {
   const repository = new PrismaHabitRepository(prisma)
   const createHabit = new CreateHabit(repository)
   const getHabitOfTheDay = new GetHabitOfTheDay(repository)
+  const toggleHabit = new ToggleHabit(repository)
   const habitController = new HabitController(
     createHabit,
-    getHabitOfTheDay
+    getHabitOfTheDay,
+    toggleHabit
   )
   const validateSchemas = new ValidationSchemas()
 
@@ -23,4 +25,8 @@ export async function appRoutes(app: FastifyInstance) {
     '/habits/day',
     { preHandler: validateSchemas.getHabitADayQuery },
     (req) => habitController.getHabitsOfTheDay(req))
+  app.patch(
+    '/habits/:id/toggle',
+    { preHandler: validateSchemas.toggleDayHabitParams },
+    (req) => habitController.toggleDayHabit(req))
 }
