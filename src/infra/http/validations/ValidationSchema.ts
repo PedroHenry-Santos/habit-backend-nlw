@@ -18,11 +18,27 @@ export class ValidationSchemas {
     habitADayQuery.parse(request.query)
     done()
   }
+
   toggleDayHabitParams(request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) {
     const dayHabitParams = z.object({
       id: z.string().uuid()
     })
     dayHabitParams.parse(request.params)
+    done()
+  }
+
+  pushSendBody(request: FastifyRequest, reply: FastifyReply, done: HookHandlerDoneFunction) {
+    const sendPushBody = z.object({
+      subscription: z.object({
+        endpoint: z.string(),
+        keys: z.object({
+          p256dh: z.string(),
+          auth: z.string()
+        })
+      })
+    })
+
+    sendPushBody.parse(request.body)
     done()
   }
 }
