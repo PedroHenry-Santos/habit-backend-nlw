@@ -12,7 +12,7 @@ export class HabitController {
   async create(request: IGenericRequest, response: IGenericResponse) {
     const { title, weekDays } = request.body
     await this.createHabit.execute({ title, weekDays })
-    response.status(201)
+    return response.status(201).send()
   }
 
   async getHabitsOfTheDay (request: IGenericRequest) {

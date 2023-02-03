@@ -22,16 +22,16 @@ export async function appRoutes(app: FastifyInstance) {
   app.post(
     '/habits',
     { preHandler: validateSchemas.createHabitBody },
-    (req, reply) => habitController.create(req, reply))
+    habitController.create.bind(habitController))
   app.get(
     '/habits/day',
     { preHandler: validateSchemas.getHabitADayQuery },
-    (req) => habitController.getHabitsOfTheDay(req))
+    habitController.getHabitsOfTheDay.bind(habitController))
   app.get(
     '/habits/summary',
-    () => habitController.getHabitsSummary())
+    habitController.getHabitsSummary.bind(habitController))
   app.patch(
     '/habits/:id/toggle',
     { preHandler: validateSchemas.toggleDayHabitParams },
-    (req) => habitController.toggleDayHabit(req))
+    habitController.toggleDayHabit.bind(habitController))
 }
