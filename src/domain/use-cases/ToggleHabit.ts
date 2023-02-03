@@ -24,7 +24,7 @@ export class ToggleHabit {
     }
 
     const dayHabit =  new DayHabit({
-      day: new Day({ date: today }, day.id),
+      day: new Day({ date: today }, day?.id),
       habit: new Habit({ title: 'any' }, id)
     })
     
